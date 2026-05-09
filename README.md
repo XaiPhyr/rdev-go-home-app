@@ -1,28 +1,68 @@
-# rdev-auth-go
+# Go Home Automation API & PWA
 
-A standardized, production-ready Authentication and Authorization boilerplate for Go services. 
+A lightweight, high-performance **Home Automation API** and **Progressive Web App (PWA)** built with Go. This project serves as a centralized hub for managing smart home devices, designed with a mobile-first approach and a "SQL-first" philosophy.
 
-## 🔐 Features
-*   **JWT Integration:** Secure token generation and validation.
-*   **Hierarchical RBAC:** Role-based access control with support for inheritance.
-*   **Middleware:** Plug-and-play Gin middleware for protecting routes.
-*   **SQL-First:** Optimized for Bun ORM and PostgreSQL.
+## 🚀 Overview
 
-## 🛠 Usage
-This repository is designed to be the security foundation for all `rdev` projects.
+The **rdev-go-home-app** provides a robust backend architecture for controlling home environments. It is designed to be client-agnostic, serving both a built-in **PWA** for browser-based control and a **JSON API** for native mobile integration.
 
-## Folder Structure
+### Core Features
+
+- **Device Management:** CRUD operations for lights, switches, and sensors.
+- **State Persistence:** Real-time state tracking using **PostgreSQL** and **Bun ORM**.
+- **Multi-Client Support:** Dedicated endpoints for Mobile (JSON) and Web (HTML/PWA).
+- **Architecture:** Clean, tiered structure (`internal/` pattern) for scalability and testability.
+- **Security:** Role-Based Access Control (RBAC) to manage user permissions.
+
+## 🛠 Tech Stack
+
+| Layer                | Technology                                    |
+| -------------------- | --------------------------------------------- |
+| **Language**         | Go (Golang)                                   |
+| **Database**         | PostgreSQL                                    |
+| **ORM**              | [Bun](https://bun.uptrace.dev/)               |
+| **Caching**          | Redis                                         |
+| **Containerization** | Docker                                        |
+| **Web Framework**    | React.js                                      |
+
+## 🛠 Getting Started
+
+### Prerequisites
+
+- Go 1.26+
+- Docker & Docker Compose
+- Make (optional, but recommended)
+
+### Local Development (Docker)
+
+The environment is configured to bridge the containerized API with your local database via `host-gateway`.
+
+1. **Clone the repository:**
+```bash
+git clone https://github.com/XaiPhyr/rdev-go-api.git
+cd rdev-go-api
+```
+
+2. **Spin up the environment:**
+```bash
+docker compose up -d --build
+```
+The API will be accessible at `http://localhost:8200/api/v1`.
+
+
+## 📂 Folder Structure
 ```
 .
-├── cmd/
-│   ├── api/                # Main entry point; initializes the server, services, and database
-├── internal/
-│   ├── config/             # Configuration management; loads environment variables
-│   ├── data/               # The "Source of Truth"; contains database models and repositories
-│   │   └── migrations/     # SQL files defining schema changes over time
-│   ├── dto/                # Data Transfer Objects; handles request/response shapes and query sanitization
-│   ├── server/             # HTTP layer; contains route definitions and controller handlers
-│   ├── service/            # Business logic layer; bridges DTOs and Data models
-├── go.mod                  # Project dependencies
-└── go.sum                  # Dependency checksums
+├── api/                # Go Backend Service
+│   ├── cmd/            # Entry points
+│   ├── internal/       # Private application code
+│   │   ├── config/     # Configuration & Env
+│   │   ├── data/       # Models & Bun ORM logic
+│   │   ├── dto/        # Data Transfer Objects
+│   │   ├── server/     # Gin Engine & Routes
+│   │   └── service/    # Business Logic
+├── pwa/                # PWA / Frontend Assets
+├── templates/          # HTML Templates for Go-Gin
+├── docker-compose.yml  # Local Development Environment
+└── README.md
 ```
